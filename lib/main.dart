@@ -18,19 +18,22 @@ class ScoreboardApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Work Sans',
       ),
-      home: const MainWidget(),
+      home: MainWidget(),
     );
   }
 }
 
-enum Tab { BigChurches, SmallChurches }
+enum Tab { bigChurches, smallChurches }
 
 class MainWidget extends HookWidget {
-  const MainWidget({super.key});
+  MainWidget({super.key});
+
+  final query = Future.delayed(const Duration(seconds: 5), () => true);
 
   @override
   Widget build(BuildContext context) {
-    final tab = useState(Tab.BigChurches);
+    final tab = useState(Tab.bigChurches);
+    final future = useFuture(query);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -59,10 +62,18 @@ class MainWidget extends HookWidget {
                         isAntiAlias: true,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 12),
-                      child: const ScoreboardList(),
-                    )
+                    if (future.connectionState == ConnectionState.waiting)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 32),
+                        child: CircularProgressIndicator(
+                          color: Color(0xffF09C44),
+                        ),
+                      )
+                    else if (future.data != null)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 12),
+                        child: ScoreboardList(),
+                      )
                   ],
                 ),
               )
@@ -76,14 +87,14 @@ class MainWidget extends HookWidget {
                 children: [
                   SideButton(
                     text: 'Store menighter',
-                    selected: tab.value == Tab.BigChurches,
-                    onTap: () => tab.value = Tab.BigChurches,
+                    selected: tab.value == Tab.bigChurches,
+                    onTap: () => tab.value = Tab.bigChurches,
                   ),
                   const SizedBox(height: 8),
                   SideButton(
                     text: 'Små menigheter',
-                    selected: tab.value == Tab.SmallChurches,
-                    onTap: () => tab.value = Tab.SmallChurches,
+                    selected: tab.value == Tab.smallChurches,
+                    onTap: () => tab.value = Tab.smallChurches,
                   ),
                 ],
               )),
@@ -115,11 +126,6 @@ class SideButton extends HookWidget {
         hitTestBehavior: HitTestBehavior.opaque,
         onEnter: (event) {
           hovering.value = true;
-          debugPrint('asjkdhnasjkdnas');
-        },
-        onHover: (event) {
-          hovering.value = true;
-          debugPrint('asjkdhnasjkdnas');
         },
         onExit: (event) => hovering.value = false,
         child: AnimatedContainer(
