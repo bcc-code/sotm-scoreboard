@@ -1,0 +1,21 @@
+query lessonProgressGroupedByOrg(
+  $lessonId: ID!
+  $orgMinSize: Int
+  $orgMaxSize: Int
+) {
+  statistics {
+    lessonProgressGroupedByOrg(
+      lessonID: $lessonId
+      ageGroups: ["13 - 18", "19 - 25", "26 - 36"]
+      orgMinSize: $orgMinSize
+      orgMaxSize: $orgMaxSize
+    ) {
+      ...ProgressByOrg
+    }
+  }
+}
+
+fragment ProgressByOrg on ProgressByOrg {
+  name
+  progress
+}
