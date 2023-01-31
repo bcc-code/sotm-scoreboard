@@ -573,10 +573,6 @@ const documentNodeQuerylessonProgressGroupedByOrg = DocumentNode(definitions: [
                     value: '19 - 25',
                     isBlock: false,
                   ),
-                  StringValueNode(
-                    value: '26 - 36',
-                    isBlock: false,
-                  ),
                 ]),
               ),
               ArgumentNode(
