@@ -6,7 +6,7 @@ query lessonProgressGroupedByOrg(
   statistics {
     lessonProgressGroupedByOrg(
       lessonID: $lessonId
-      ageGroups: ["13 - 18", "19 - 25", "26 - 36"]
+      ageGroups: ["13 - 18", "19 - 25"]
       orgMinSize: $orgMinSize
       orgMaxSize: $orgMaxSize
     ) {

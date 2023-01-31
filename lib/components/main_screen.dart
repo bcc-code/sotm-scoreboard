@@ -119,6 +119,8 @@ class ScoreboardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint(data.toString());
+    final items =
+        data.items.where((element) => element.name != 'Kirkenes').toList();
     return SizedBox(
       width: 450,
       child: SelectionArea(
@@ -147,7 +149,7 @@ class ScoreboardList extends StatelessWidget {
                 ),
               ],
             ),
-            ...data.items.asMap().entries.map(
+            ...items.asMap().entries.map(
                   (kv) => TableRow(
                     children: [
                       Text(
@@ -155,7 +157,7 @@ class ScoreboardList extends StatelessWidget {
                         style: listItemTextStyle,
                       ),
                       Text(
-                        kv.value.name,
+                        nameFix(kv.value.name),
                         style: listItemTextStyle,
                       ),
                       Text(
@@ -170,6 +172,14 @@ class ScoreboardList extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String nameFix(String name) {
+    debugPrint(name);
+    if (name.contains('Bucuresti')) {
+      return 'Bucuresti';
+    }
+    return name;
   }
 }
 
