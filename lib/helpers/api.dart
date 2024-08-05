@@ -42,7 +42,7 @@ class Api {
         variables: Variables$Query$lessonProgressGroupedByOrg(
           lessonId: lessonId,
           orgMinSize: 0,
-          orgMaxSize: 99,
+          orgMaxSize: 59,
         ),
       ),
     );
@@ -50,7 +50,7 @@ class Api {
       Options$Query$lessonProgressGroupedByOrg(
         variables: Variables$Query$lessonProgressGroupedByOrg(
           lessonId: lessonId,
-          orgMinSize: 100,
+          orgMinSize: 60,
           orgMaxSize: 9999,
         ),
       ),
